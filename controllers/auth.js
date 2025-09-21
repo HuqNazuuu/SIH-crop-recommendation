@@ -356,7 +356,7 @@ const resetPassword = async (req, res) => {
     const decode = jwt.verify(token, process.env.JWT_SECRET)
     const user = await User.findOne({ email: decode.email })
 
-    //const newPassword = await hashPassword(password)   //pre is already hashing it,using it will be hasing twice.which will not match will comparing the password
+    //const newPassword = await hashPassword(password)   //pre is already hashing it,using it will be hasing twice.which will not match while comparing the password
 
     user.password = password
     await user.save()
