@@ -68,8 +68,6 @@ const login = async (req, res) => {
       name: user.name,
       email: user.email,
       status: user.status,
-      password: user.password,
-      joinedAt: user.joinedAt,
       verified: user.verified,
       userName: user.userName,
     },
@@ -358,9 +356,9 @@ const resetPassword = async (req, res) => {
     const decode = jwt.verify(token, process.env.JWT_SECRET)
     const user = await User.findOne({ email: decode.email })
 
-    const newPassword = await hashPassword(password)
+    //const newPassword = await hashPassword(password)   //pre is already hashing it,using it will be hasing twice.which will not match will comparing the password
 
-    user.password = newPassword
+    user.password = password
     await user.save()
 
     return res.status(200).send({ message: 'Password reset succesfully.' })
@@ -399,3 +397,5 @@ export {
   forgotPassword,
   resetPassword,
 }
+
+//https://github.com/HuqNazuuu/SIH-crop-recommendation
